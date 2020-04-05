@@ -7,7 +7,7 @@
 
 #include "command.h"
 
-#define MAX_MEM 1024*1024
+#define MAX_MEM 1024*1024 // 1MB
 
 void dump(struct command*cmd);
 void edit(struct command*cmd);

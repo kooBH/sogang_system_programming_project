@@ -16,7 +16,7 @@ int main(){
     struct command cmd;
     fgets(input, MAX_CHAR, stdin);
     
-    
+    //parsing arguments of input command
     check_input(input,&cmd);
     if(cmd.state == BAD_INPUT_TOO_MANY_ARGS){
       printf("ERROR::invalid args\n");
