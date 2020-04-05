@@ -2,7 +2,7 @@
 
 
 unsigned char memory[MAX_MEM];
-unsigned int last_adress=0;
+unsigned int last_address=0;
 
 void dump(struct command*cmd){
   unsigned int start,end;
@@ -17,7 +17,7 @@ void dump(struct command*cmd){
   /* arguments  */ 
   //dump
   if(cmd->num_arg==1){
-    start = last_adress;
+    start = last_address;
     end   = start + 159;
   //dump start
   }else if(cmd->num_arg==2){
@@ -80,9 +80,9 @@ void dump(struct command*cmd){
     printf("\n");
   }
   // remember last address 
-  last_adress = end+1;
-  if(last_adress == (1024*1024))
-    last_adress = 0;
+  last_address = end+1;
+  if(last_address == (1024*1024))
+    last_address = 0;
 
   cmd->state=GOOD_INPUT;
 }
