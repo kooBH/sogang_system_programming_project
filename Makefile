@@ -7,4 +7,4 @@ $(EXE) : $(SRC)
 	gcc $(SRC) -o $(EXE) -Wall
 
 clean :
-	rm *.o	
+	rm $(EXE)
