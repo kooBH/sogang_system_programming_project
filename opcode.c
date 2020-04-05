@@ -1,7 +1,5 @@
 #include "opcode.h"
 
-//https://github.com/taeguk/System-Programming-SICXE-Project/blob/master/opcode.c
-
 void create_optable(){
   FILE * fp;
   unsigned int value;

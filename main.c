@@ -4,8 +4,6 @@
 #include "opcode.h"
 #include "sub.h"
 
-//https://github.com/taeguk/System-Programming-SICXE-Project/blob/master/command.c
-
 int main(){
   int flag_run = 1;
   int exe_history=0;
