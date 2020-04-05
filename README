@@ -1,0 +1,2 @@
+build : $ make
+run   : $ ./20130523.out
