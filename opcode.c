@@ -9,6 +9,7 @@ void create_optable(){
   struct opnode* t1_node;
   struct opnode* t2_node;
   int i;
+  unsigned int format;
 
   fp = fopen("opcode.txt","r");
 
@@ -18,10 +19,20 @@ void create_optable(){
   while(fscanf(fp,"%X %s %s",&value,op,type)!=EOF){
     hash_index = hash(op);
     t1_node =optable[hash_index];
+
+    //format
+    if(!strcmp(type,"1"))
+      format=1;
+    else if(!strcmp(type,"2"))
+      format=2;
+    else // 3/4
+      format=3;
+
     //first bucket
     if(t1_node==NULL){
       t1_node = (struct opnode*)malloc(sizeof(struct opnode));
       t1_node->value = value;
+      t1_node->format = format;
       strcpy(t1_node->name,op);
       t1_node->next = NULL;
       optable[hash_index]=t1_node;
@@ -32,6 +43,7 @@ void create_optable(){
         t1_node=t1_node->next;
       t2_node = (struct opnode*)malloc(sizeof(struct opnode));
       t2_node->value = value;
+      t2_node->format = format;
       strcpy(t2_node->name,op);
       t2_node->next = NULL;
       t1_node->next = t2_node;
@@ -64,6 +76,8 @@ void opcode(struct command*cmd){
   cmd->state=GOOD_INPUT;
 }
 
+
+
 void opcodelist(struct command*cmd){
   int i;
   struct opnode *t1_node;
@@ -93,4 +107,37 @@ unsigned int hash(char* str){
   while(*(str++))
     hash_value =((hash_value<<5)+hash_value)+*str;
   return hash_value % SIZE_HASH;
+}
+
+
+int find_opcode_format(char* code){
+int hash_index;
+struct opnode * t_node;
+  hash_index = hash(code);
+  t_node = optable[hash_index];
+  while(strcmp(t_node->name,code)){
+    t_node=t_node->next;
+    if(t_node ==NULL){
+      printf("ERROR::Can't find such mnemonic\n");
+      return -1;
+    }
+  }
+   return t_node->format;
+}
+
+
+int get_opcode(char*code){
+int hash_index;
+struct opnode * t_node;
+  hash_index = hash(code);
+  t_node = optable[hash_index];
+  while(strcmp(t_node->name,code)){
+    t_node=t_node->next;
+    if(t_node ==NULL){
+      printf("ERROR::Can't find such mnemonic\n");
+      return -1;
+    }
+  }
+   return t_node->value;
+
 }

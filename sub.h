@@ -20,6 +20,7 @@ struct string_node{
 void help(struct command*);
 void dir(struct command*);
 void history(struct command*);
+void type(struct command*);
 
 void add_history(struct command*);
 

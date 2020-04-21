@@ -3,6 +3,7 @@
 #include "memory.h"
 #include "opcode.h"
 #include "sub.h"
+#include "assemble.h"
 
 int main(){
   int flag_run = 1;
@@ -10,6 +11,7 @@ int main(){
   char input[MAX_CHAR];
 
   create_optable();
+  symtab = NULL;
 
   while(flag_run){
     printf("sicsim>");
@@ -53,6 +55,15 @@ int main(){
     }
     else if(!(strcmp(cmd.arg[0],"opcodelist"))){
       opcodelist(&cmd);
+    }
+    else if(!(strcmp(cmd.arg[0],"type"))){
+      type(&cmd);
+    }
+    else if(!strcmp(cmd.arg[0],"assemble")||!(strcmp(cmd.arg[0],"asm"))){
+      assemble(&cmd);
+    }
+    else if(!strcmp(cmd.arg[0],"symbol")){
+      symbol(&cmd);
     }
     else{
       cmd.state=BAD_INPUT_UNKOWN;

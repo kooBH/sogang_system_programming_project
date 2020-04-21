@@ -21,6 +21,9 @@ void help(struct command*cmd){
   printf("reset\n");
   printf("opcode mnemonic\n");
   printf("opcodelist\n");
+  printf("assemble filename\n");
+  printf("type filename\n");
+  printf("symbol\n");
 }
 
 void dir(struct command*cmd){
@@ -62,7 +65,7 @@ void dir(struct command*cmd){
 
 void history(struct command*cmd){
   int cnt = 1;
-    struct string_node * cur_node;
+  struct string_node * cur_node;
   if(cmd->num_arg>1){
     printf("ERROR::Invalid arguments\n");
     cmd->state=BAD_INPUT_TOO_MANY_ARGS;
@@ -75,6 +78,28 @@ void history(struct command*cmd){
   }
   cmd->state = GOOD_INPUT;
 
+}
+
+void type(struct command *cmd){
+	char buf[MAX_CHAR];
+  if(cmd->num_arg>2){
+    printf("ERROR::Invalid arguments\n");
+    cmd->state=BAD_INPUT_TOO_MANY_ARGS;
+    return;
+  }
+  FILE *fp;
+
+	fp = fopen(cmd->arg[1], "r");
+	if(fp != NULL) {
+		while(fgets(buf, 81, fp) != NULL){
+			printf("%s",buf);
+		}
+		fclose(fp);
+	}
+  else
+    printf("ERROR::Can't find file '%s'",cmd->arg[1]);
+  // can't find file
+  cmd->state = GOOD_INPUT;
 }
 
 void add_history(struct command * cmd){
